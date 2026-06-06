@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Reserver un rendez-vous{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card hero-panel">
+            <div class="card-body">
+                <span class="eyebrow">Reservation assistee</span>
+                <h1 class="section-title">Prendre un rendez-vous</h1>
+                <p class="section-subtitle mb-4">Choisissez un medecin, un creneau et un motif dans une interface plus claire pour simuler une vraie plateforme MediBook.</p>
+                <div class="info-card mb-4">
+                    <strong>Patient de demonstration :</strong> {{ patient.nom }} {{ patient.prenom }}
+                </div>
+                <form method="post" class="row g-3">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="col-md-6 {% if field.name == 'motif' %}col-12{% endif %}">
+                        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <div class="col-12 d-flex gap-2">
+                        <button class="btn btn-primary" type="submit">Confirmer la reservation</button>
+                        <a class="btn btn-outline-secondary" href="{% url 'liste_rendezvous' %}">Voir mes rendez-vous</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

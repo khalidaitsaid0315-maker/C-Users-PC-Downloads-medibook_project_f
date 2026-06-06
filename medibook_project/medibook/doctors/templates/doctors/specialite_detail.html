@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ specialite.name }} - MediBook{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="text-primary mb-3">Specialite: {{ specialite.name }}</h1>
+        <p class="text-muted">{{ specialite.description|default:"Aucune description disponible." }}</p>
+        <ul class="list-group list-group-flush">
+            {% for medecin in medecins %}
+            <li class="list-group-item">
+                <a href="{% url 'medecin_detail' medecin.id %}">Dr. {{ medecin.nom }} {{ medecin.prenom }}</a>
+            </li>
+            {% empty %}
+            <li class="list-group-item text-muted">Aucun medecin actif dans cette specialite.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

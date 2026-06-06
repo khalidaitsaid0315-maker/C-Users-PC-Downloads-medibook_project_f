@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Notifications - MediBook{% endblock %}
+
+{% block content %}
+<div class="card hero-panel">
+    <div class="card-body">
+        <span class="eyebrow">Rappels et traces</span>
+        <h1 class="section-title">Historique des notifications</h1>
+        <p class="section-subtitle mb-4">Une vue centralisee des confirmations et rappels envoyes aux patients depuis MediBook.</p>
+        <div class="list-group">
+            {% for notif in notifications %}
+            <div class="list-group-item timeline-item">
+                <div class="d-flex justify-content-between">
+                    <strong>{{ notif.type_notification|upper }}</strong>
+                    <span class="timeline-date">{{ notif.envoye_le }}</span>
+                </div>
+                <div>Patient: {{ notif.rendez_vous.patient.nom }} {{ notif.rendez_vous.patient.prenom }}</div>
+                <div>Medecin: Dr. {{ notif.rendez_vous.medecin.nom }} {{ notif.rendez_vous.medecin.prenom }}</div>
+                <div class="doctor-meta">{{ notif.message }}</div>
+            </div>
+            {% empty %}
+            <div class="alert medibook-alert mb-0">Aucune notification envoyee pour le moment.</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

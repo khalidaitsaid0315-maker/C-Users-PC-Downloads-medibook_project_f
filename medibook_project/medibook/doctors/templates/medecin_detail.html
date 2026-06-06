@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Medecin - MediBook{% endblock %}
+
+{% block content %}
+<section class="card hero-panel position-relative">
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <span class="eyebrow">{{ medecin.specialite.name }}</span>
+            <h1 class="section-title">Dr. {{ medecin.nom }} {{ medecin.prenom }}</h1>
+            <p class="section-subtitle">Un profil medical presente de maniere rassurante, avec des informations pratiques directement exploitables par les patients.</p>
+        </div>
+        <div class="col-lg-5">
+            <div class="info-card">
+                <p class="mb-2"><strong>Cabinet :</strong> {{ medecin.adresse_cabinet }}</p>
+                <p class="mb-2"><strong>Email :</strong> {{ medecin.email }}</p>
+                <p class="mb-0"><strong>Telephone :</strong> {{ medecin.telephone_professionnel }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-wrap gap-2 mt-4">
+        <a class="btn btn-primary" href="{% url 'planning_medecin' medecin.id %}">Voir les disponibilites</a>
+        <a class="btn btn-outline-secondary" href="{% url 'doctor_dashboard' medecin.id %}">Tableau de bord</a>
+        <a class="btn btn-outline-secondary" href="{% url 'medecin_list' %}">Retour a l'annuaire</a>
+    </div>
+</section>
+{% endblock %}

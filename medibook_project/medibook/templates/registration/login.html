@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Connexion - MediBook{% endblock %}
+
+{% block content %}
+<div class="card hero-panel mx-auto" style="max-width: 620px;">
+    <div class="card-body">
+        <h1 class="section-title">Connexion</h1>
+        <p class="section-subtitle mb-4">Accédez à votre espace patient pour gérer vos rendez-vous.</p>
+        <form method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="alert medibook-alert alert-danger">Veuillez vérifier vos identifiants.</div>
+            {% endif %}
+            <div class="mb-3">
+                <label class="form-label" for="id_username">Identifiant</label>
+                {{ form.username }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="id_password">Mot de passe</label>
+                {{ form.password }}
+            </div>
+            <button class="btn btn-primary" type="submit">Se connecter</button>
+            <a class="btn btn-link" href="{% url 'signup' %}">Créer un compte</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Mes rendez-vous{% endblock %}
+
+{% block content %}
+<section class="card hero-panel position-relative mb-4">
+    <div class="row align-items-end g-4">
+        <div class="col-lg-8">
+            <span class="eyebrow">Suivi patient</span>
+            <h1 class="section-title">Mes rendez-vous</h1>
+            <p class="section-subtitle mb-0">{{ patient.nom }} {{ patient.prenom }} retrouve ici un historique plus lisible, des statuts plus visibles et des actions immediates.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            <a class="btn btn-primary" href="{% url 'reserver_rendezvous' %}">Nouveau rendez-vous</a>
+        </div>
+    </div>
+</section>
+
+<div class="card table-shell">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Heure</th>
+                        <th>Medecin</th>
+                        <th>Specialite</th>
+                        <th>Statut</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rdv in rendez_vous %}
+                    <tr>
+                        <td>{{ rdv.date }}</td>
+                        <td>{{ rdv.heure }}</td>
+                        <td>Dr. {{ rdv.medecin.nom }} {{ rdv.medecin.prenom }}</td>
+                        <td>{{ rdv.specialite.name }}</td>
+                        <td>
+                            {% if rdv.statut == "en_attente" %}
+                            <span class="status-pill status-pending">{{ rdv.get_statut_display }}</span>
+                            {% elif rdv.statut == "confirme" %}
+                            <span class="status-pill status-confirmed">{{ rdv.get_statut_display }}</span>
+                            {% elif rdv.statut == "annule" %}
+                            <span class="status-pill status-cancelled">{{ rdv.get_statut_display }}</span>
+                            {% else %}
+                            <span class="status-pill status-done">{{ rdv.get_statut_display }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if rdv.statut != 'annule' %}
+                            <a class="btn btn-sm btn-outline-primary" href="{% url 'modifier_rendezvous' rdv.id %}">Modifier</a>
+                            <a class="btn btn-sm btn-outline-danger" href="{% url 'annuler_rendezvous' rdv.id %}">Annuler</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aucun rendez-vous enregistre.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

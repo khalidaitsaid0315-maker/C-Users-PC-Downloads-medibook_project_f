@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Modifier un rendez-vous{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="text-primary mb-3">Modifier le rendez-vous</h1>
+        <form method="post" class="row g-3">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="col-md-6 {% if field.name == 'motif' %}col-12{% endif %}">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="text-danger small">{{ field.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Enregistrer</button>
+                <a class="btn btn-outline-secondary" href="{% url 'liste_rendezvous' %}">Retour</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

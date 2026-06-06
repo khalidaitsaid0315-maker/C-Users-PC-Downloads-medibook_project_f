@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord patient - MediBook{% endblock %}
+
+{% block content %}
+<div class="card hero-panel">
+    <div class="card-body">
+        <span class="eyebrow">Mon espace patient</span>
+        <h1 class="section-title">Bienvenue, {{ patient.nom }} {{ patient.prenom }}</h1>
+        <p class="section-subtitle mb-4">Suivez vos prochains rendez-vous, consultez votre historique et annulez si besoin.</p>
+    </div>
+</div>
+
+<div class="row g-4 mt-4">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h5">Prochains rendez-vous</h2>
+                {% if prochains %}
+                <ul class="list-group list-group-flush">
+                    {% for rdv in prochains %}
+                    <li class="list-group-item">
+                        <strong>{{ rdv.date }} à {{ rdv.heure }}</strong><br>
+                        Dr. {{ rdv.medecin.nom }} {{ rdv.medecin.prenom }} - {{ rdv.specialite.name }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Aucun rendez-vous à venir.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h5">Rendez-vous passés</h2>
+                {% if passes %}
+                <ul class="list-group list-group-flush">
+                    {% for rdv in passes %}
+                    <li class="list-group-item">
+                        {{ rdv.date }} - {{ rdv.medecin.nom }} {{ rdv.medecin.prenom }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Aucun rendez-vous passé.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-4">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h5">Rendez-vous annulés</h2>
+                {% if annules %}
+                <ul class="list-group list-group-flush">
+                    {% for rdv in annules %}
+                    <li class="list-group-item">
+                        {{ rdv.date }} - {{ rdv.medecin.nom }} {{ rdv.medecin.prenom }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Aucun rendez-vous annulé.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

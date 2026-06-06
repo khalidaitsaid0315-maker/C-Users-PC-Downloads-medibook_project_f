@@ -1,0 +1,59 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+<section class="mb-admin-hero">
+    <div>
+        <span class="mb-admin-eyebrow">Pilotage de la plateforme</span>
+        <h2>Un espace d'administration plus clair pour gerer les medecins, les patients et les rendez-vous.</h2>
+        <p>Retrouvez vos modules principaux dans une vue plus lisible, avec une presentation proche de l'univers MediBook.</p>
+    </div>
+    <div class="mb-admin-hero-stats">
+        <div class="mb-admin-stat">
+            <span>Modules</span>
+            <strong>{{ app_list|length }}</strong>
+        </div>
+        <div class="mb-admin-stat">
+            <span>Compte</span>
+            <strong>{{ user.get_username }}</strong>
+        </div>
+    </div>
+</section>
+
+<div id="content-main" class="mb-admin-grid">
+    {% if app_list %}
+        {% for app in app_list %}
+        <section class="app-{{ app.app_label }} module mb-admin-app">
+            <header class="mb-admin-app-head">
+                <h3>{{ app.name }}</h3>
+                <span>{{ app.models|length }} element{{ app.models|length|pluralize }}</span>
+            </header>
+            <div class="mb-admin-models">
+                {% for model in app.models %}
+                <article class="mb-admin-model">
+                    <div>
+                        <h4>
+                            {% if model.admin_url %}
+                            <a href="{{ model.admin_url }}">{{ model.name }}</a>
+                            {% else %}
+                            {{ model.name }}
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <div class="mb-admin-actions">
+                        {% if model.add_url %}
+                        <a class="mb-admin-link" href="{{ model.add_url }}">Ajouter</a>
+                        {% endif %}
+                        {% if model.admin_url and show_changelinks %}
+                        <a class="mb-admin-link muted" href="{{ model.admin_url }}">Modifier</a>
+                        {% endif %}
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endfor %}
+    {% else %}
+    <p>Vous n'avez pas la permission d'afficher ou modifier quoi que ce soit.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,1 @@
+web: sh -c "python medibook/manage.py migrate && gunicorn medibook.wsgi:application --bind 0.0.0.0:8161 --workers 4"

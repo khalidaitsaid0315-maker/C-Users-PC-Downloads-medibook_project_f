@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord - MediBook{% endblock %}
+
+{% block content %}
+<section class="card hero-panel position-relative mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <span class="eyebrow">Plateforme medicale centralisee</span>
+            <h1 class="section-title">MediBook pilote les rendez-vous, les patients et l'orientation clinique avec une interface plus rassurante.</h1>
+            <p class="section-subtitle mb-4">Suivez l'activite du cabinet, fluidifiez la prise de rendez-vous et donnez a chaque acteur un tableau de bord lisible en un coup d'oeil.</p>
+            <div>
+                <span class="feature-chip">Annuaire medical</span>
+                <span class="feature-chip">Disponibilites synchronisees</span>
+                <span class="feature-chip">Orientation IA</span>
+                <span class="feature-chip">Historique des notifications</span>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Performance</div>
+                    <div class="stat-value">{{ total_rdv }}</div>
+                    <div class="doctor-meta">rendez-vous suivis dans la plateforme</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Capacite active</div>
+                    <div class="stat-value">{{ total_medecins }}</div>
+                    <div class="doctor-meta">praticiens references</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Patients</div>
+                    <div class="stat-value">{{ total_patients }}</div>
+                    <div class="doctor-meta">profils pris en charge</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Vigilance</div>
+                    <div class="stat-value">{{ rdv_en_attente }}</div>
+                    <div class="doctor-meta">demandes a confirmer</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="metric-band">
+    <div class="metric-tile">
+        <div class="metric-kicker">Medecins inscrits</div>
+        <div class="metric-value">{{ total_medecins }}</div>
+        <div class="metric-note">Un vivier de praticiens accessibles depuis un annuaire clair.</div>
+    </div>
+    <div class="metric-tile">
+        <div class="metric-kicker">Patients enregistres</div>
+        <div class="metric-value">{{ total_patients }}</div>
+        <div class="metric-note">Des profils centralises pour un meilleur suivi administratif.</div>
+    </div>
+    <div class="metric-tile">
+        <div class="metric-kicker">Rendez-vous en attente</div>
+        <div class="metric-value">{{ rdv_en_attente }}</div>
+        <div class="metric-note">Les demandes qui necessitent encore une validation.</div>
+    </div>
+    <div class="metric-tile">
+        <div class="metric-kicker">Rendez-vous confirmes</div>
+        <div class="metric-value">{{ rdv_confirmes }}</div>
+        <div class="metric-note">Le flux de consultations deja verrouillees.</div>
+    </div>
+    <div class="metric-tile">
+        <div class="metric-kicker">Rendez-vous annules</div>
+        <div class="metric-value">{{ rdv_annules }}</div>
+        <div class="metric-note">Les replanifications a surveiller pour limiter les pertes.</div>
+    </div>
+    <div class="metric-tile">
+        <div class="metric-kicker">Couverture globale</div>
+        <div class="metric-value">{{ total_rdv }}</div>
+        <div class="metric-note">Vision synthese de l'activite generale MediBook.</div>
+    </div>
+</section>
+{% endblock %}

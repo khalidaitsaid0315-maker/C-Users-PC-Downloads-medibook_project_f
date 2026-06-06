@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Profil - MediBook{% endblock %}
+
+{% block content %}
+<div class="card hero-panel mx-auto" style="max-width: 720px;">
+    <div class="card-body">
+        <h1 class="section-title">Mon profil MediBook</h1>
+        <p class="section-subtitle mb-4">Consultez vos informations et accedez a votre tableau de bord personnel.</p>
+        <dl class="row">
+            <dt class="col-sm-3">Identifiant</dt>
+            <dd class="col-sm-9">{{ request.user.username }}</dd>
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">{{ request.user.email }}</dd>
+            <dt class="col-sm-3">Nom</dt>
+            <dd class="col-sm-9">{{ request.user.patient_profile.nom }}</dd>
+            <dt class="col-sm-3">Prenom</dt>
+            <dd class="col-sm-9">{{ request.user.patient_profile.prenom }}</dd>
+            <dt class="col-sm-3">Telephone</dt>
+            <dd class="col-sm-9">{{ request.user.patient_profile.telephone }}</dd>
+        </dl>
+        <a class="btn btn-primary" href="{% url 'patient_dashboard' %}">Voir mon tableau de bord</a>
+        <a class="btn btn-outline-secondary" href="{% url 'modifier_profil' %}">Modifier mon profil</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | MediBook Admin{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/admin-medibook.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div class="mb-admin-branding">
+    <div class="mb-admin-mark">M</div>
+    <div>
+        <h1 id="site-name"><a href="{% url 'admin:index' %}">MediBook Admin</a></h1>
+        <p class="mb-admin-tagline">Coordination medicale intelligente</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Annuler un rendez-vous{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="text-danger mb-3">Annuler le rendez-vous</h1>
+        <p>Confirmez-vous l'annulation du rendez-vous du <strong>{{ rendez_vous.date }}</strong> a <strong>{{ rendez_vous.heure }}</strong> ?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">Confirmer l'annulation</button>
+            <a class="btn btn-outline-secondary" href="{% url 'liste_rendezvous' %}">Retour</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

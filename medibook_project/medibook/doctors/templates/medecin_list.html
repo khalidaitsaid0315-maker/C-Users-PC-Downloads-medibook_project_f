@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Medecins - MediBook{% endblock %}
+
+{% block content %}
+<section class="card hero-panel position-relative mb-4">
+    <div class="row g-4 align-items-end">
+        <div class="col-lg-8">
+            <span class="eyebrow">Annuaire medical</span>
+            <h1 class="section-title">Un corps medical presente avec plus de clarte, de confiance et de disponibilite.</h1>
+            <p class="section-subtitle mb-0">Chaque fiche medecin met en avant la specialite, le cabinet et l'acces direct aux disponibilites pour fluidifier la reservation.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            <a class="btn btn-outline-primary" href="{% url 'specialite_list' %}">Explorer les specialites</a>
+        </div>
+    </div>
+</section>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-5">
+                <label class="form-label">Recherche</label>
+                <input type="search" name="q" value="{{ query }}" class="form-control" placeholder="Nom, specialité ou email">
+            </div>
+            <div class="col-md-5">
+                <label class="form-label">Specialite</label>
+                <select name="specialite" class="form-select">
+                    <option value="">Toutes les specialites</option>
+                    {% for specialite in specialites %}
+                    <option value="{{ specialite.id }}" {% if selected_specialite|stringformat:'s' == specialite.id|stringformat:'s' %}selected{% endif %}>{{ specialite.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2 text-end">
+                <button type="submit" class="btn btn-primary w-100">Filtrer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row g-4">
+    {% for medecin in medecins %}
+    <div class="col-md-6">
+        <div class="card doctor-card h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                    <div>
+                        <div class="doctor-meta text-uppercase small mb-2">Praticien actif</div>
+                        <h5 class="card-title mb-1">
+                            <a class="text-decoration-none" href="{% url 'medecin_detail' medecin.id %}">
+                                Dr. {{ medecin.nom }} {{ medecin.prenom }}
+                            </a>
+                        </h5>
+                    </div>
+                    <span class="availability-pill">Disponible</span>
+                </div>
+                <p class="mb-2"><strong>Specialite :</strong> {{ medecin.specialite.name }}</p>
+                <p class="doctor-meta mb-4">{{ medecin.adresse_cabinet }}</p>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-sm btn-primary" href="{% url 'medecin_detail' medecin.id %}">Voir le profil</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'planning_medecin' medecin.id %}">Disponibilites</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert medibook-alert mb-0">Aucun medecin actif n'est reference pour le moment.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

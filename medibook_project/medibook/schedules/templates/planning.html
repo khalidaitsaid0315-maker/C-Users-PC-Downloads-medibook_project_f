@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Disponibilites - MediBook{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="text-primary mb-3">Disponibilites de Dr. {{ medecin.nom }} {{ medecin.prenom }}</h1>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Debut</th>
+                        <th>Fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for creneau in creneaux %}
+                    <tr>
+                        <td>{{ creneau.date }}</td>
+                        <td>{{ creneau.heure_debut }}</td>
+                        <td>{{ creneau.heure_fin }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">Aucun creneau disponible.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

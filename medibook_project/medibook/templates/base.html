@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <title>{% block title %}MediBook{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/medibook.css' %}">
+</head>
+<body class="medibook-body">
+    <div class="page-glow page-glow-one"></div>
+    <div class="page-glow page-glow-two"></div>
+    <nav class="navbar navbar-expand-lg medibook-navbar">
+        <div class="container-xl">
+            <a class="navbar-brand brand-lockup" href="{% url 'home' %}">
+                <span class="brand-mark">M</span>
+                <span>
+                    <span class="brand-name">MediBook</span>
+                    <span class="brand-tag">Coordination medicale intelligente</span>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'medecin_list' %}">Medecins</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'reserver_rendezvous' %}">Prendre RDV</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_rendezvous' %}">Mes RDV</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'patient_list' %}">Patients</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_notifications' %}">Notifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'global_dashboard' %}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'analyser_symptomes' %}">Orientation IA</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'historique_ia' %}">Historique IA</a></li>
+                </ul>
+                {% if request.user.is_authenticated %}
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'patient_dashboard' %}">Bonjour {{ request.user.username }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Deconnexion</a></li>
+                </ul>
+                {% else %}
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Inscription</a></li>
+                </ul>
+                {% endif %}
+                <a class="btn medibook-cta d-none d-lg-inline-flex" href="{% url 'reserver_rendezvous' %}">Consultation rapide</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-xl py-4 py-lg-5 position-relative">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert medibook-alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="medibook-footer">
+        <div class="container-xl footer-shell">
+            <div>
+                <div class="footer-brand">MediBook</div>
+                <p class="footer-copy mb-0">Une interface claire pour reserver, suivre et organiser les parcours de soins.</p>
+            </div>
+            <div class="footer-meta">
+                <span>Patients, medecins, disponibilites, orientation IA</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

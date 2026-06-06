@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block title %}Accueil - MediBook{% endblock %} 
+
+{% block content %} 
+<div class="container"> 
+    <div class="p-5 mb-4 bg-light rounded-3 mt-3"> 
+        <div class="container-fluid py-5"> 
+            <h1 class="display-5 fw-bold">Bienvenue sur MediBook</h1> <p class="col-md-8 fs-4 lead">Votre plateforme intelligente de gestion administrative et d'orientation médicale. Consultez les disponibilités de nos praticiens et organisez vos rendez-vous en quelques clics.</p> 
+            <hr class="my-4"> 
+            <p>Besoin d'aide ? Notre module basé sur l'Intelligence Artificielle analyse vos symptômes pour vous indiquer instantanément la spécialité médicale adaptée à vos besoins.</p> 
+            <a class="btn btn-primary btn-lg" href="{% url 'reserver_rendezvous' %}" role="button">Prendre un rendez-vous</a> 
+        </div>
+    </div>
+</div>
+{% endblock %} 

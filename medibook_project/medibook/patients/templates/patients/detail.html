@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Profil patient{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="text-primary">{{ patient.nom }} {{ patient.prenom }}</h1>
+        <p><strong>Email :</strong> {{ patient.email }}</p>
+        <p><strong>Telephone :</strong> {{ patient.telephone }}</p>
+        <p><strong>Date de naissance :</strong> {{ patient.date_de_naissance }}</p>
+
+        <h2 class="h4 mt-4">Historique des rendez-vous</h2>
+        <ul class="list-group">
+            {% for rdv in historique %}
+            <li class="list-group-item">
+                {{ rdv.date }} a {{ rdv.heure }} avec Dr. {{ rdv.medecin.nom }} {{ rdv.medecin.prenom }} - {{ rdv.get_statut_display }}
+            </li>
+            {% empty %}
+            <li class="list-group-item text-muted">Aucun rendez-vous pour ce patient.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

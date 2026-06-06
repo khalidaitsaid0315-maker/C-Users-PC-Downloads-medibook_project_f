@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Orientation IA{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card hero-panel">
+            <div class="card-body">
+                <span class="eyebrow">Orientation clinique assistee</span>
+                <h1 class="section-title">Aide a l'orientation medicale</h1>
+                <p class="section-subtitle mb-4">Le module IA de MediBook donne une premiere suggestion de specialite a partir de symptomes decrits en langage naturel.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <label class="form-label" for="id_texte_symptomes">Decrivez vos symptomes</label>
+                    <textarea class="form-control mb-3" rows="5" id="id_texte_symptomes" name="texte_symptomes" placeholder="Exemple: douleur a la poitrine et palpitations"></textarea>
+                    <button class="btn btn-primary" type="submit">Analyser</button>
+                </form>
+
+                {% if resultat %}
+                <div class="info-card mt-4">
+                    <div><strong>Specialite recommandee :</strong> {{ resultat.specialite_recommandee.name }}</div>
+                    <div><strong>Confiance :</strong> {{ resultat.score_confiance }}%</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

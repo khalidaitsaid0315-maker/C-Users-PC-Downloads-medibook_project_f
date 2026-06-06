@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Patients - MediBook{% endblock %}
+
+{% block content %}
+<div class="card hero-panel">
+    <div class="card-body">
+        <span class="eyebrow">Base patients</span>
+        <h1 class="section-title">Patients</h1>
+        <p class="section-subtitle mb-4">Une liste plus propre des profils suivis dans l'application, avec un acces direct a leur historique de rendez-vous.</p>
+        <div class="list-group">
+            {% for patient in patients %}
+            <a class="list-group-item list-group-item-action" href="{% url 'patient_detail' patient.id %}">
+                {{ patient.nom }} {{ patient.prenom }}
+            </a>
+            {% empty %}
+            <div class="alert medibook-alert mb-0">Aucun patient enregistre.</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

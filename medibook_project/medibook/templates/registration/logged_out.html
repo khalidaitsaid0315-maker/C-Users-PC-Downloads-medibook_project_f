@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Déconnexion - MediBook{% endblock %}
+
+{% block content %}
+<div class="card hero-panel mx-auto" style="max-width: 640px;">
+    <div class="card-body">
+        <h1 class="section-title">Déconnecté</h1>
+        <p class="section-subtitle mb-4">Vous avez été déconnecté de MediBook. À bientôt !</p>
+        <a class="btn btn-primary" href="{% url 'home' %}">Retour à l’accueil</a>
+    </div>
+</div>
+{% endblock %}

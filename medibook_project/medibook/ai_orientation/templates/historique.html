@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Historique IA{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="text-primary mb-0">Historique des orientations IA</h1>
+            <a class="btn btn-outline-primary" href="{% url 'analyser_symptomes' %}">Nouvelle analyse</a>
+        </div>
+        <div class="list-group">
+            {% for analyse in analyses %}
+            <div class="list-group-item">
+                <div class="small text-muted mb-2">{{ analyse.cree_le }}</div>
+                <div><strong>Symptomes :</strong> {{ analyse.texte_symptomes }}</div>
+                <div><strong>Orientation :</strong> {{ analyse.specialite_recommandee.name }}</div>
+                <div><strong>Confiance :</strong> {{ analyse.score_confiance }}%</div>
+            </div>
+            {% empty %}
+            <div class="alert alert-info mb-0">Aucune analyse effectuee.</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

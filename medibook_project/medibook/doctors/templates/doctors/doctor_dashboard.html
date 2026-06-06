@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord medecin - MediBook{% endblock %}
+
+{% block content %}
+<div class="card hero-panel">
+    <div class="card-body">
+        <span class="eyebrow">Espace medecin</span>
+        <h1 class="section-title">Dr. {{ medecin.nom }} {{ medecin.prenom }}</h1>
+        <p class="section-subtitle mb-4">Suivez les rendez-vous du jour, la semaine et l'activité globale de votre planning.</p>
+    </div>
+</div>
+
+<div class="row g-4 mt-4">
+    <div class="col-lg-4">
+        <div class="card stat-card">
+            <div class="card-body">
+                <div class="stat-label">Rendez-vous totaux</div>
+                <div class="stat-value">{{ total_rdv }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card stat-card">
+            <div class="card-body">
+                <div class="stat-label">Confirmés</div>
+                <div class="stat-value">{{ confirms }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card stat-card">
+            <div class="card-body">
+                <div class="stat-label">Annulés</div>
+                <div class="stat-value">{{ annules }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-4">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h5">Rendez-vous du jour</h2>
+                {% if rendez_vous_du_jour %}
+                <ul class="list-group list-group-flush">
+                    {% for rdv in rendez_vous_du_jour %}
+                    <li class="list-group-item">
+                        {{ rdv.date }} à {{ rdv.heure }} - {{ rdv.patient.nom }} {{ rdv.patient.prenom }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Aucun rendez-vous programmé pour aujourd'hui.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h5">Rendez-vous de la semaine</h2>
+                {% if rendez_vous_semaine %}
+                <ul class="list-group list-group-flush">
+                    {% for rdv in rendez_vous_semaine %}
+                    <li class="list-group-item">
+                        {{ rdv.date }} à {{ rdv.heure }} - {{ rdv.patient.nom }} {{ rdv.patient.prenom }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Aucun rendez-vous prévu cette semaine.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

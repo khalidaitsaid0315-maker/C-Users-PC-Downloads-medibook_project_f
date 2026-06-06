@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Specialites - MediBook{% endblock %}
+
+{% block content %}
+<div class="card hero-panel">
+    <div class="card-body">
+        <span class="eyebrow">Parcours de soins</span>
+        <h1 class="section-title">Specialites medicales</h1>
+        <p class="section-subtitle mb-4">Une navigation plus lisible pour orienter rapidement le patient vers la bonne expertise.</p>
+        <div class="list-group">
+            {% for spec in specialites %}
+            <a class="list-group-item list-group-item-action" href="{% url 'specialite_detail' spec.id %}">
+                {{ spec.name }}
+            </a>
+            {% empty %}
+            <div class="alert medibook-alert mb-0">Aucune specialite disponible.</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
