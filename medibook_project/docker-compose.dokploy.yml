@@ -1,0 +1,46 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-medibook_db}
+      MYSQL_USER: ${MYSQL_USER:-django}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-django}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$${MYSQL_ROOT_PASSWORD} || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - medibook-network
+
+  web:
+    image: mobenlamine/medibook:v1
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8061:8161"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - staticfiles:/app/medibook/staticfiles
+      - media:/app/medibook/media
+    networks:
+      - medibook-network
+
+volumes:
+  db_data:
+  staticfiles:
+  media:
+
+networks:
+  medibook-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.0.0/16
